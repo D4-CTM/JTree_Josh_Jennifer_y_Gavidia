@@ -2,6 +2,7 @@ package exploradordearchivos;
 
 import java.io.File;
 import java.io.IOException;
+import javax.swing.tree.DefaultMutableTreeNode;
 
 /**
  *
@@ -17,6 +18,21 @@ public class Logistics {
     
     public void setFile(String root){
         Seleccionado = new File(root);
+    }
+    
+    public String FindFolder(String Target){
+        if (Target.equals("Root")){
+            return Seleccionado.getAbsolutePath();
+        }
+        for (File Branches : Seleccionado.listFiles()){
+            if (Branches.getName().equals(Target)){
+                return Branches.getAbsolutePath();
+            }
+            if (Branches.isDirectory()){
+                FindFolder(Target);
+            }
+        }
+        return "N/A";
     }
     
     public void CreateTXTFile(String root, String name){
@@ -36,7 +52,9 @@ public class Logistics {
     }
     
     public void CreateDir(String root, String name){
-        new File(root + "\\" + name).mkdir();
+        if (new File(root + "\\" + name).mkdir()){
+            System.out.println("Se creo");
+        } else System.out.println("No se creo");
     }
     
     public void CopyFile(){

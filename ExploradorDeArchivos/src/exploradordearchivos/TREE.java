@@ -23,14 +23,17 @@ public class TREE extends javax.swing.JFrame {
     File root = new File("Root");
     DefaultMutableTreeNode Raiz;
     DefaultTreeModel model;
+    Logistics Logistica;
 
-    public TREE() {
+    public TREE(Logistics Logistica) {
+        this.Logistica = Logistica;
+        
         initComponents();
         createRoot();
     }
     
     public final JTree createTree(){
-        Raiz = new DefaultMutableTreeNode(root.getName()); // root node
+        Raiz = new DefaultMutableTreeNode(root.getName());
         
         DirectoryTree(new File("Root"), Raiz);
         
@@ -95,7 +98,7 @@ public class TREE extends javax.swing.JFrame {
                 cambiarNameActionPerformed(evt);
             }
         });
-        jPanel1.add(cambiarName, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 70, 130, 40));
+        jPanel1.add(cambiarName, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 70, 140, 40));
 
         path.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -119,9 +122,15 @@ public class TREE extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void createActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createActionPerformed
-        DefaultMutableTreeNode Folder = new DefaultMutableTreeNode("Nueva Carpeta");
-        model.insertNodeInto(Folder, Raiz, Raiz.getChildCount());
-        model.reload();
+        TreePath oldName = arbolito.getSelectionPath(); 
+        if (oldName != null){
+            File Path = new File(Logistica.FindFolder(oldName.toString()));
+            System.out.println(Path.getAbsolutePath());
+            Logistica.CreateDir(Path.getAbsolutePath(), "epico");
+            
+            createTree();
+            arbolito.setModel(model);
+        }
     }//GEN-LAST:event_createActionPerformed
 
     private void cambiarNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cambiarNameActionPerformed
@@ -129,25 +138,29 @@ public class TREE extends javax.swing.JFrame {
     }//GEN-LAST:event_cambiarNameActionPerformed
 
     private void pathActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pathActionPerformed
-        // TODO add your handling code here:
+
     }//GEN-LAST:event_pathActionPerformed
 
     private void changeName(JTree arbol) {
         TreePath oldName = arbol.getSelectionPath(); 
-        DefaultMutableTreeNode selectedNode = (DefaultMutableTreeNode) oldName.getLastPathComponent();
-        String nuevo = JOptionPane.showInputDialog(null, "Nuevo nombre");
-        selectedNode.setUserObject(nuevo);
-        model.nodeChanged(selectedNode);
-        model.reload();
+        if (oldName != null){
+            DefaultMutableTreeNode selectedNode = (DefaultMutableTreeNode) oldName.getLastPathComponent();
+            String nuevo = JOptionPane.showInputDialog(null, "Nuevo nombre");
+            selectedNode.setUserObject(nuevo);
+            model.nodeChanged(selectedNode);
+            model.reload();
+        }
     }
 
+    
+    
     /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new TREE().setVisible(true);
+                new TREE(new Logistics()).setVisible(true);
             }
         });
     }
