@@ -20,7 +20,7 @@ public class TREE extends javax.swing.JFrame {
     /**
      * Creates new form TREE
      */
-    File root = new File("Raiz");
+    File root = new File("Root");
     DefaultMutableTreeNode nodeRoot = new DefaultMutableTreeNode(root);
     DefaultTreeModel model = new DefaultTreeModel(nodeRoot);
 
@@ -30,11 +30,11 @@ public class TREE extends javax.swing.JFrame {
     }
     
     public final JTree createTree(){
-        DefaultMutableTreeNode root = new DefaultMutableTreeNode("Root"); // root node
+        DefaultMutableTreeNode Raiz = new DefaultMutableTreeNode(root.getName()); // root node
         
-        DirectoryTree(new File("Root"), root);
+        DirectoryTree(new File("Root"), Raiz);
         
-        DefaultTreeModel model = new DefaultTreeModel(root);
+        DefaultTreeModel model = new DefaultTreeModel(Raiz);
         return new JTree(model);
     }
     
@@ -87,7 +87,7 @@ public class TREE extends javax.swing.JFrame {
                 createActionPerformed(evt);
             }
         });
-        jPanel1.add(create, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 110, -1, 40));
+        jPanel1.add(create, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 20, 140, 40));
 
         cambiarName.setText("Cambiar Nombre");
         cambiarName.addActionListener(new java.awt.event.ActionListener() {
@@ -95,8 +95,14 @@ public class TREE extends javax.swing.JFrame {
                 cambiarNameActionPerformed(evt);
             }
         });
-        jPanel1.add(cambiarName, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 180, -1, 40));
-        jPanel1.add(path, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 250, 150, 40));
+        jPanel1.add(cambiarName, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 70, 130, 40));
+
+        path.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                pathActionPerformed(evt);
+            }
+        });
+        jPanel1.add(path, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 120, 150, 40));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -122,6 +128,10 @@ public class TREE extends javax.swing.JFrame {
     private void cambiarNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cambiarNameActionPerformed
         changeName(arbolito);
     }//GEN-LAST:event_cambiarNameActionPerformed
+
+    private void pathActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pathActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_pathActionPerformed
 
     private void changeName(JTree arbol) {
         TreePath oldName = arbol.getSelectionPath(); 
