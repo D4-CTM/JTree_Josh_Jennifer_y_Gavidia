@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package apoyoEmocional;
+package exploradordearchivos;
 
 import java.io.File;
 import javax.swing.JOptionPane;
@@ -27,8 +27,15 @@ public class TREE extends javax.swing.JFrame {
     public TREE() {
         initComponents();
         createRoot();
-        DirectoryTree(root,nodeRoot);
-
+    }
+    
+    public final JTree createTree(){
+        DefaultMutableTreeNode root = new DefaultMutableTreeNode("Root"); // root node
+        
+        DirectoryTree(new File("Root"), root);
+        
+        DefaultTreeModel model = new DefaultTreeModel(root);
+        return new JTree(model);
     }
     
      private void DirectoryTree(File Archivo, DefaultMutableTreeNode Raiz){
@@ -61,7 +68,7 @@ public class TREE extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        arbolito = new javax.swing.JTree();
+        arbolito = createTree();
         create = new javax.swing.JButton();
         cambiarName = new javax.swing.JButton();
         path = new javax.swing.JTextField();

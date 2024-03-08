@@ -1,20 +1,43 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Main.java to edit this template
- */
 package exploradordearchivos;
 
-/**
- *
- * @author josue
- */
-public class ExploradorDeArchivos {
+import java.io.File;
+import javax.swing.JTree;
+import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.DefaultTreeModel;
 
-    /**
-     * @param args the command line arguments
-     */
+public class ExploradorDeArchivos extends javax.swing.JFrame{
+    public JTree Arbol;
+    
     public static void main(String[] args) {
-        // TODO code application logic here
+        new ExploradorDeArchivos().setVisible(true);
+    }
+    
+    public ExploradorDeArchivos(){
+        setDefaultCloseOperation(3);
+        setSize(500,500);
+
+        setLocationRelativeTo(null);
+        Arbol = createTree();
+        add(Arbol);
+    }
+    
+    public final JTree createTree(){
+        DefaultMutableTreeNode root = new DefaultMutableTreeNode("Root"); // root node
+        
+        DirectoryTree(new File("Root"), root);
+        
+        DefaultTreeModel model = new DefaultTreeModel(root);
+        return new JTree(model);
+    }
+    
+    private void DirectoryTree(File Archivo, DefaultMutableTreeNode Raiz){
+        for (File Branches : Archivo.listFiles()){
+            if (Branches.isDirectory()){
+                DirectoryTree(Branches, new DefaultMutableTreeNode(Branches.getName()));
+            } else{
+                Raiz.add(new DefaultMutableTreeNode(Branches.getName()));
+            }
+        }
     }
     
 }
