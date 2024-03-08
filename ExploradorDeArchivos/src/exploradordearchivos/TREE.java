@@ -4,7 +4,12 @@
  */
 package exploradordearchivos;
 
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.Arrays;
+import java.util.Comparator;
 import javax.swing.JOptionPane;
 import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
@@ -27,32 +32,31 @@ public class TREE extends javax.swing.JFrame {
 
     public TREE(Logistics Logistica) {
         this.Logistica = Logistica;
-        
+
         initComponents();
         createRoot();
     }
-    
-    public final JTree createTree(){
+
+    public final JTree createTree() {
         Raiz = new DefaultMutableTreeNode(root.getName());
-        
+
         DirectoryTree(new File("Root"), Raiz);
-        
+
         model = new DefaultTreeModel(Raiz);
         return new JTree(model);
     }
-    
-     private void DirectoryTree(File Archivo, DefaultMutableTreeNode Raiz){
-        for (File Branches : Archivo.listFiles()){
-            if (Branches.isDirectory()){
+
+    private void DirectoryTree(File Archivo, DefaultMutableTreeNode Raiz) {
+        for (File Branches : Archivo.listFiles()) {
+            if (Branches.isDirectory()) {
                 DefaultMutableTreeNode TreeBranch = new DefaultMutableTreeNode(Branches.getName()); // level 1 node
                 DirectoryTree(Branches, TreeBranch);
                 Raiz.add(TreeBranch);
-            } else{
+            } else {
                 Raiz.add(new DefaultMutableTreeNode(Branches.getName()));
             }
         }
     }
-    
 
     private void createRoot() {
         if (!root.exists()) {
@@ -72,9 +76,19 @@ public class TREE extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         arbolito = createTree();
+        jPanel2 = new javax.swing.JPanel();
         create = new javax.swing.JButton();
         cambiarName = new javax.swing.JButton();
-        path = new javax.swing.JTextField();
+        CrearArchivoTXT = new javax.swing.JButton();
+        CrearArchivoBinario = new javax.swing.JButton();
+        EscribirEnArchivo = new javax.swing.JButton();
+        OrdenarPorFecha = new javax.swing.JButton();
+        OrdenarPorNombre = new javax.swing.JButton();
+        OrdenarPorTamagno = new javax.swing.JButton();
+        OrdenarPorTipo = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -82,7 +96,7 @@ public class TREE extends javax.swing.JFrame {
 
         jScrollPane1.setViewportView(arbolito);
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 430, 510));
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 400, 510));
 
         create.setText("Crear Carpeta");
         create.addActionListener(new java.awt.event.ActionListener() {
@@ -90,7 +104,6 @@ public class TREE extends javax.swing.JFrame {
                 createActionPerformed(evt);
             }
         });
-        jPanel1.add(create, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 20, 140, 40));
 
         cambiarName.setText("Cambiar Nombre");
         cambiarName.addActionListener(new java.awt.event.ActionListener() {
@@ -98,14 +111,116 @@ public class TREE extends javax.swing.JFrame {
                 cambiarNameActionPerformed(evt);
             }
         });
-        jPanel1.add(cambiarName, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 70, 140, 40));
 
-        path.addActionListener(new java.awt.event.ActionListener() {
+        CrearArchivoTXT.setText("Crear archivo de texto");
+        CrearArchivoTXT.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                pathActionPerformed(evt);
+                CrearArchivoTXTActionPerformed(evt);
             }
         });
-        jPanel1.add(path, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 120, 150, 40));
+
+        CrearArchivoBinario.setText("Crear archivo comercial");
+        CrearArchivoBinario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CrearArchivoBinarioActionPerformed(evt);
+            }
+        });
+
+        EscribirEnArchivo.setText("Escribir en archivo");
+        EscribirEnArchivo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                EscribirEnArchivoActionPerformed(evt);
+            }
+        });
+
+        OrdenarPorFecha.setText("Ordenar por fecha");
+        OrdenarPorFecha.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                OrdenarPorFechaActionPerformed(evt);
+            }
+        });
+
+        OrdenarPorNombre.setText("Ordenar por nombre");
+        OrdenarPorNombre.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                OrdenarPorNombreActionPerformed(evt);
+            }
+        });
+
+        OrdenarPorTamagno.setText("Ordenar por tamaño");
+        OrdenarPorTamagno.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                OrdenarPorTamagnoActionPerformed(evt);
+            }
+        });
+
+        OrdenarPorTipo.setText("Ordenar por tipo");
+        OrdenarPorTipo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                OrdenarPorTipoActionPerformed(evt);
+            }
+        });
+
+        jButton1.setText("jButton1");
+
+        jButton2.setText("jButton1");
+
+        jButton3.setText("jButton1");
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap(18, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(OrdenarPorTipo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(OrdenarPorTamagno, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(OrdenarPorNombre, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(EscribirEnArchivo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(CrearArchivoBinario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(CrearArchivoTXT, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(cambiarName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(create, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(OrdenarPorFecha, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(22, 22, 22)
+                .addComponent(create, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(cambiarName, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(CrearArchivoTXT, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(CrearArchivoBinario, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(EscribirEnArchivo, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(OrdenarPorFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(OrdenarPorNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(OrdenarPorTamagno, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(OrdenarPorTipo, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton1)
+                    .addComponent(jButton2))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton3)
+                .addContainerGap(27, Short.MAX_VALUE))
+        );
+
+        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 0, 230, 510));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -122,14 +237,19 @@ public class TREE extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void createActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createActionPerformed
-        TreePath oldName = arbolito.getSelectionPath(); 
-        if (oldName != null){
-            File Path = new File(Logistica.FindFolder(oldName.toString()));
-            System.out.println(Path.getAbsolutePath());
-            Logistica.CreateDir(Path.getAbsolutePath(), "epico");
-            
-            createTree();
-            arbolito.setModel(model);
+        TreePath oldName = arbolito.getSelectionPath();
+        if (oldName != null) {
+            File Path = new File(Logistica.FindFolder(oldName.getLastPathComponent().toString()));
+            try {
+                Object FileName = JOptionPane.showInputDialog(this, "Ingrese el nombre de la carpeta:");
+                if (!FileName.toString().isBlank()) {
+                    Logistica.CreateDir(Path.getAbsolutePath(), FileName.toString());
+
+                    createTree();
+                    arbolito.setModel(model);
+                }
+            } catch (Exception Ex) {
+            }
         }
     }//GEN-LAST:event_createActionPerformed
 
@@ -137,11 +257,183 @@ public class TREE extends javax.swing.JFrame {
         changeName(arbolito);
     }//GEN-LAST:event_cambiarNameActionPerformed
 
-    private void pathActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pathActionPerformed
+    private void CrearArchivoTXTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CrearArchivoTXTActionPerformed
+        TreePath oldName = arbolito.getSelectionPath();
+        if (oldName != null) {
+            File Path = new File(Logistica.FindFolder(oldName.getLastPathComponent().toString()));
+            try {
+                Object FileName = JOptionPane.showInputDialog(this, "Ingrese el nombre de la carpeta:");
+                if (!FileName.toString().isBlank()) {
+                    Logistica.CreateTXTFile(Path.getAbsolutePath(), FileName.toString());
 
-    }//GEN-LAST:event_pathActionPerformed
+                    createTree();
+                    arbolito.setModel(model);
+                }
+            } catch (Exception Ex) {
+            }
+        }
+    }//GEN-LAST:event_CrearArchivoTXTActionPerformed
 
-    private void changeName(JTree arbol) {
+    private void CrearArchivoBinarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CrearArchivoBinarioActionPerformed
+        TreePath oldName = arbolito.getSelectionPath();
+        if (oldName != null) {
+            File Path = new File(Logistica.FindFolder(oldName.getLastPathComponent().toString()));
+            try {
+                Object FileName = JOptionPane.showInputDialog(this, "Ingrese el nombre de la carpeta:");
+                if (!FileName.toString().isBlank()) {
+                    Logistica.CreateComercialFile(Path.getAbsolutePath(), FileName.toString());
+
+                    createTree();
+                    arbolito.setModel(model);
+                }
+            } catch (Exception Ex) {
+            }
+        }
+    }//GEN-LAST:event_CrearArchivoBinarioActionPerformed
+
+    private void EscribirEnArchivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EscribirEnArchivoActionPerformed
+        // Obtener el nodo seleccionado en el JTree
+        TreePath selectedPath = arbolito.getSelectionPath();
+        if (selectedPath == null) {
+            JOptionPane.showMessageDialog(this, "Por favor, seleccione un archivo.");
+            return;
+        }
+
+        // Obtener la ruta completa del archivo seleccionado en el JTree
+        StringBuilder filePathBuilder = new StringBuilder();
+        for (Object node : selectedPath.getPath()) {
+            DefaultMutableTreeNode treeNode = (DefaultMutableTreeNode) node;
+            if (filePathBuilder.length() > 0) {
+                filePathBuilder.append(File.separator); // Separador de archivos dependiente del sistema
+            }
+            filePathBuilder.append(treeNode.getUserObject().toString());
+        }
+        String filePath = filePathBuilder.toString();
+
+        // Permitir al usuario ingresar el texto a registrar
+        String texto = JOptionPane.showInputDialog(this, "Ingrese el texto a registrar:");
+        if (texto == null || texto.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "No se ha ingresado ningún texto.");
+            return;
+        }
+
+        // Escribir el texto en el archivo seleccionado
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath, false))) {
+            writer.write(texto);
+            writer.newLine();
+            JOptionPane.showMessageDialog(this, "Texto registrado correctamente en el archivo.");
+        } catch (IOException ex) {
+            JOptionPane.showMessageDialog(this, "Error al escribir en el archivo: " + ex.getMessage());
+        }
+    }//GEN-LAST:event_EscribirEnArchivoActionPerformed
+
+    private void OrdenarPorFechaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_OrdenarPorFechaActionPerformed
+        ordenarArchivosPorFecha();
+    }//GEN-LAST:event_OrdenarPorFechaActionPerformed
+
+    private void OrdenarPorTamagnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_OrdenarPorTamagnoActionPerformed
+        ordenarArchivosPorTamaño();
+    }//GEN-LAST:event_OrdenarPorTamagnoActionPerformed
+
+    private void OrdenarPorTipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_OrdenarPorTipoActionPerformed
+        ordenarArchivosPorTipo();
+    }//GEN-LAST:event_OrdenarPorTipoActionPerformed
+
+    private void OrdenarPorNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_OrdenarPorNombreActionPerformed
+        ordenarArchivosPorNombre();
+    }//GEN-LAST:event_OrdenarPorNombreActionPerformed
+    
+    private void ordenarArchivos(Comparator<File> comparator) {
+        // Obtener el nodo seleccionado en el JTree
+        TreePath selectedPath = arbolito.getSelectionPath();
+        if (selectedPath == null) {
+            JOptionPane.showMessageDialog(this, "Por favor, seleccione una carpeta.");
+            return;
+        }
+
+        // Obtener el nodo seleccionado
+        DefaultMutableTreeNode selectedNode = (DefaultMutableTreeNode) selectedPath.getLastPathComponent();
+        if (!selectedNode.isLeaf()) {
+            // Obtener la ruta de la carpeta seleccionada
+            StringBuilder folderPathBuilder = new StringBuilder();
+            for (Object node : selectedPath.getPath()) {
+                DefaultMutableTreeNode treeNode = (DefaultMutableTreeNode) node;
+                if (folderPathBuilder.length() > 0) {
+                    folderPathBuilder.append(File.separator); // Separador de archivos dependiente del sistema
+                }
+                folderPathBuilder.append(treeNode.getUserObject().toString());
+            }
+            String folderPath = folderPathBuilder.toString();
+
+            // Obtener los archivos de la carpeta seleccionada
+            File folder = new File(folderPath);
+            File[] files = folder.listFiles();
+            if (files != null) {
+                Arrays.sort(files, comparator);
+                actualizarJTree(selectedNode, files);
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Por favor, seleccione una carpeta, no un archivo.");
+        }
+    }
+
+    private void actualizarJTree(DefaultMutableTreeNode parentNode, File[] files) {
+        // Limpiar los nodos hijos existentes
+        parentNode.removeAllChildren();
+
+        // Agregar los archivos ordenados como nodos hijos
+        for (File file : files) {
+            DefaultMutableTreeNode fileNode = new DefaultMutableTreeNode(file.getName());
+            parentNode.add(fileNode);
+        }
+
+        // Actualizar el JTree
+        model.reload(parentNode);
+    }
+    
+    private void ordenarArchivosPorNombre() {
+        ordenarArchivos(new Comparator<File>() {
+            @Override
+            public int compare(File f1, File f2) {
+                return f1.getName().compareToIgnoreCase(f2.getName());
+            }
+        });
+    }
+    
+    private void ordenarArchivosPorTipo() {
+        ordenarArchivos(new Comparator<File>() {
+            @Override
+            public int compare(File f1, File f2) {
+                return getFileExtension(f1.getName()).compareTo(getFileExtension(f2.getName()));
+            }
+
+            private String getFileExtension(String fileName) {
+                int dotIndex = fileName.lastIndexOf('.');
+                return (dotIndex == -1) ? "" : fileName.substring(dotIndex + 1);
+            }
+        });
+    }
+    
+    private void ordenarArchivosPorTamaño() {
+        ordenarArchivos(new Comparator<File>() {
+            @Override
+            public int compare(File f1, File f2) {
+                return Long.compare(f2.length(), f1.length());
+            }
+        });
+    }
+    
+    private void ordenarArchivosPorFecha() {
+        ordenarArchivos(new Comparator<File>() {
+            @Override
+            public int compare(File f1, File f2) {
+                return Long.compare(f1.lastModified(), f2.lastModified());
+            }
+        });
+    }
+
+    
+private void changeName(JTree arbol) {
         TreePath oldName = arbol.getSelectionPath(); 
         if (oldName != null){
             DefaultMutableTreeNode selectedNode = (DefaultMutableTreeNode) oldName.getLastPathComponent();
@@ -166,11 +458,21 @@ public class TREE extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton CrearArchivoBinario;
+    private javax.swing.JButton CrearArchivoTXT;
+    private javax.swing.JButton EscribirEnArchivo;
+    private javax.swing.JButton OrdenarPorFecha;
+    private javax.swing.JButton OrdenarPorNombre;
+    private javax.swing.JButton OrdenarPorTamagno;
+    private javax.swing.JButton OrdenarPorTipo;
     private javax.swing.JTree arbolito;
     private javax.swing.JButton cambiarName;
     private javax.swing.JButton create;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField path;
     // End of variables declaration//GEN-END:variables
 }

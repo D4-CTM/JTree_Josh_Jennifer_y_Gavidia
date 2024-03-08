@@ -2,6 +2,7 @@ package exploradordearchivos;
 
 import java.io.File;
 import java.io.IOException;
+import javax.swing.JOptionPane;
 import javax.swing.tree.DefaultMutableTreeNode;
 
 /**
@@ -18,6 +19,14 @@ public class Logistics {
     
     public void setFile(String root){
         Seleccionado = new File(root);
+    }
+    
+    public void CopyFile(){
+        Copy = new File(Seleccionado.getAbsolutePath());
+    }
+    
+    public void PasteFile(){
+        
     }
     
     public String FindFolder(String Target){
@@ -53,16 +62,8 @@ public class Logistics {
     
     public void CreateDir(String root, String name){
         if (new File(root + "\\" + name).mkdir()){
-            System.out.println("Se creo");
-        } else System.out.println("No se creo");
-    }
-    
-    public void CopyFile(){
-        Copy = new File(Seleccionado.getAbsolutePath());
-    }
-    
-    public File PasteFile(){
-        return Copy;
+            JOptionPane.showMessageDialog(null, "Se ha creado la carpeta \"" + name + "\"", "Carpeta creada", JOptionPane.INFORMATION_MESSAGE, null);
+        } else JOptionPane.showMessageDialog(null, "No se ha podido crear \"" + name + "\"", "Error", JOptionPane.WARNING_MESSAGE, null);
     }
     
 }
