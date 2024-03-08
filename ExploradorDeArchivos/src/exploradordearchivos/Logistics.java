@@ -29,6 +29,22 @@ public class Logistics {
         
     }
     
+    public void RenameFile(String root, String name){
+        File oldName = new File(root);
+        String[] neoName = oldName.getAbsolutePath().split("[\\\\]");
+        String newPath = "";
+        for (int i = 0; i < neoName.length - 1; i++){
+            newPath += neoName[i] + "\\";
+        }
+        
+        String[] Ext = neoName[neoName.length - 1].split("[.]");
+        
+        if (!neoName[neoName.length - 1].equals("Root")){
+            newPath += name;
+            oldName.renameTo(new File(newPath + "." + Ext[1]));
+        }
+    }
+    
     public String FindFolder(String Target){
         if (Target.equals("Root")){
             return Seleccionado.getAbsolutePath();

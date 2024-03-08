@@ -443,13 +443,20 @@ public class TREE extends javax.swing.JFrame {
 
     
 private void changeName(JTree arbol) {
-        TreePath oldName = arbol.getSelectionPath(); 
-        if (oldName != null){
-            DefaultMutableTreeNode selectedNode = (DefaultMutableTreeNode) oldName.getLastPathComponent();
-            String nuevo = JOptionPane.showInputDialog(null, "Nuevo nombre");
-            selectedNode.setUserObject(nuevo);
-            model.nodeChanged(selectedNode);
-            model.reload();
+        TreePath oldName = arbolito.getSelectionPath();
+        if (oldName != null) {
+            File Path = new File(Logistica.FindFolder(oldName.getLastPathComponent().toString()));
+            try {
+                Object FileName = JOptionPane.showInputDialog(this, "Ingrese el nuevo nombre:");
+                if (!FileName.toString().isBlank()) {
+                    Logistica.RenameFile(Path.getAbsolutePath(), FileName.toString());
+                    
+                    createTree();
+                    arbolito.setModel(model);
+                }
+            } catch (Exception Ex) {
+                System.out.println("error");
+            }
         }
     }
 
