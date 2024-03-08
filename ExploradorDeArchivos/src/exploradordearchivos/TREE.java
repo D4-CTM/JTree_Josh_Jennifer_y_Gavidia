@@ -86,9 +86,9 @@ public class TREE extends javax.swing.JFrame {
         OrdenarPorNombre = new javax.swing.JButton();
         OrdenarPorTamagno = new javax.swing.JButton();
         OrdenarPorTipo = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        Copiar = new javax.swing.JButton();
+        Cortar = new javax.swing.JButton();
+        Pegar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -161,11 +161,16 @@ public class TREE extends javax.swing.JFrame {
             }
         });
 
-        jButton1.setText("jButton1");
+        Copiar.setText("Copiar");
+        Copiar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CopiarActionPerformed(evt);
+            }
+        });
 
-        jButton2.setText("jButton1");
+        Cortar.setText("Cortar");
 
-        jButton3.setText("jButton1");
+        Pegar.setText("Pegar");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -184,10 +189,10 @@ public class TREE extends javax.swing.JFrame {
                     .addComponent(create, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(OrdenarPorFecha, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(Copiar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(Cortar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(Pegar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -213,10 +218,10 @@ public class TREE extends javax.swing.JFrame {
                 .addComponent(OrdenarPorTipo, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2))
+                    .addComponent(Copiar)
+                    .addComponent(Cortar))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton3)
+                .addComponent(Pegar)
                 .addContainerGap(27, Short.MAX_VALUE))
         );
 
@@ -342,6 +347,10 @@ public class TREE extends javax.swing.JFrame {
     private void OrdenarPorNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_OrdenarPorNombreActionPerformed
         ordenarArchivosPorNombre();
     }//GEN-LAST:event_OrdenarPorNombreActionPerformed
+
+    private void CopiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CopiarActionPerformed
+        
+    }//GEN-LAST:event_CopiarActionPerformed
     
     private void ordenarArchivos(Comparator<File> comparator) {
         // Obtener el nodo seleccionado en el JTree
@@ -458,6 +467,8 @@ private void changeName(JTree arbol) {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton Copiar;
+    private javax.swing.JButton Cortar;
     private javax.swing.JButton CrearArchivoBinario;
     private javax.swing.JButton CrearArchivoTXT;
     private javax.swing.JButton EscribirEnArchivo;
@@ -465,12 +476,10 @@ private void changeName(JTree arbol) {
     private javax.swing.JButton OrdenarPorNombre;
     private javax.swing.JButton OrdenarPorTamagno;
     private javax.swing.JButton OrdenarPorTipo;
+    private javax.swing.JButton Pegar;
     private javax.swing.JTree arbolito;
     private javax.swing.JButton cambiarName;
     private javax.swing.JButton create;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
