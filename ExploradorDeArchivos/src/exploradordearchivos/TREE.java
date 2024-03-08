@@ -21,8 +21,8 @@ public class TREE extends javax.swing.JFrame {
      * Creates new form TREE
      */
     File root = new File("Root");
-    DefaultMutableTreeNode nodeRoot = new DefaultMutableTreeNode(root);
-    DefaultTreeModel model = new DefaultTreeModel(nodeRoot);
+    DefaultMutableTreeNode Raiz;
+    DefaultTreeModel model;
 
     public TREE() {
         initComponents();
@@ -30,11 +30,11 @@ public class TREE extends javax.swing.JFrame {
     }
     
     public final JTree createTree(){
-        DefaultMutableTreeNode Raiz = new DefaultMutableTreeNode(root.getName()); // root node
+        Raiz = new DefaultMutableTreeNode(root.getName()); // root node
         
         DirectoryTree(new File("Root"), Raiz);
         
-        DefaultTreeModel model = new DefaultTreeModel(Raiz);
+        model = new DefaultTreeModel(Raiz);
         return new JTree(model);
     }
     
@@ -120,9 +120,8 @@ public class TREE extends javax.swing.JFrame {
 
     private void createActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createActionPerformed
         DefaultMutableTreeNode Folder = new DefaultMutableTreeNode("Nueva Carpeta");
-        model.insertNodeInto(Folder, nodeRoot, nodeRoot.getChildCount());
+        model.insertNodeInto(Folder, Raiz, Raiz.getChildCount());
         model.reload();
-
     }//GEN-LAST:event_createActionPerformed
 
     private void cambiarNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cambiarNameActionPerformed
@@ -140,7 +139,6 @@ public class TREE extends javax.swing.JFrame {
         selectedNode.setUserObject(nuevo);
         model.nodeChanged(selectedNode);
         model.reload();
-        
     }
 
     /**
